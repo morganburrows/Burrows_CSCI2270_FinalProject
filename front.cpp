@@ -13,22 +13,8 @@ int main()
     back backend;
     gamelevel level;
 
-    /*
-    time.wait(1);
-    cout<<"Blazing sun"<<endl;
-    time.wait(1.5);
-    cout<<"No plan B"<<endl;
-    time.wait(1.5);
-    cout<<"One shot"<<endl;
-    time.wait(1.5);
-    cout<<"Make it count"<<endl<<endl<<endl;
-    */
-    cout<<"     ######  #####    ###  ###  ######    ######  ######   "<<endl;
-    cout<<"    ###     ### ##   ###  ###  ###  ###  ###     ###  ###  "<<endl;
-    cout<<"   ######  ###  ##  ###  ###  ######    ######  ######     "<<endl;
-    cout<<"     ###  ###   ## ###  ###  ###       ###     ###  ###    "<<endl;
-    cout<<" ######  ###    #####  ###  ###       ######  ###    ###   "<<endl<<endl<<endl;
-
+    backend.initmenu();
+    backend.startmenu();
     string Minput;
 
     do
@@ -42,6 +28,7 @@ int main()
             MM = false;
             backend.current = backend.root;
             backend.EImenu(backend.current);
+            backend.tripped = false;
         }
         else if(Minput == "quit")
         {
@@ -51,6 +38,10 @@ int main()
         {
             cout<<endl<<"wrong input"<<endl<<endl;
             MM = true;
+            if(backend.tripped != false)
+            {
+                backend.tripped = true;
+            }
         }
     }
     while(MM == true);

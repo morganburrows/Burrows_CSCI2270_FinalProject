@@ -5,80 +5,30 @@
 #include <sstream>
 #include <cstdlib>
 #include <vector>
+#include<array>
 
 using namespace std;
 
 
 struct gamelevel
 {
+    int clicks = 0;
+    string state;
+    bool interactable;
     string menuname;
+    string description;
+    string interaction;
     gamelevel* up;
     //gamelevel* down;
+    vector<string> subarray;
     gamelevel* childone;
     gamelevel* childtwo;
     gamelevel* childthree;
     gamelevel* childfour;
     gamelevel* childfive;
-    gamelevel* current;
+    gamelevel* next;
 };
 
-struct weapon
-{
-    string weapon;
-    bool safety = true;
-    bool loaded = false;
-    bool armed = false;
-    struct weapon *scope;
-};
-
-struct scope
-{
-    string scope;
-    int elevation;
-    int windage;
-};
-
-struct backpack
-{
-    string backpack;
-    struct backpack *ammo;
-    struct backpack *rangefinder;
-    struct backpack *binoculars;
-};
-
-struct ammo
-{
-    string ammo;
-    string type;
-};
-
-struct rangefinder
-{
-    string rangefinder;
-    int RFdistance;
-    int RFwindspeed;
-};
-
-struct binoculars
-{
-    string binoculars;
-    int focus;
-    bool infocus;
-};
-
-struct target
-{
-    string target;
-    int targetdist;
-    string targettype;
-};
-
-struct conditions
-{
-    string conditions;
-    int Cwindspeed;
-    int Cdistance;
-};
 
 class back
 {
@@ -87,13 +37,37 @@ class back
         virtual ~back();
         gamelevel* root;
         gamelevel* current;
+        gamelevel* searcher;
+        vector<string> mainsubarray = {"weapon","backpack"};
+        vector<string> weapsubarray = {"scope","trigger","safety","chamber","bolt"};
+        vector<string> bpaksubarray = {"binoculars","rangefinder","ammunition"};
+        vector<string> scpesubarray = {"elevation knob","windage knob"};
+        vector<string> ammosubarray = {"AP ammunition", "AM ammunition"};
+        bool loaded = false;
+        bool amload = false;
+        bool apload = false;
+        bool safe = true;
+        bool locked = true;
+        bool rangefound = false;
+        bool tripped = true;
+        bool wiset = false;
+        bool diset = false;
+        bool hit;
+        bool win = false;
+        int firdist;
+        int wisp;
+        int dist;
 
         void interact(gamelevel* level);
         void examine(gamelevel* level);
         void EImenu(gamelevel* level);
-        void upmenu(gamelevel* level);
-        void downmenu(gamelevel* level);
-        void EIprompt(string);
+        void actionchoice(gamelevel* level);
+        void adjust(gamelevel * level);
+        void gamewin();
+        void initmenu();
+        void startmenu();
+        void examinecheck(gamelevel* level);
+        void interactcheck(gamelevel* level);
     protected:
     private:
 };
